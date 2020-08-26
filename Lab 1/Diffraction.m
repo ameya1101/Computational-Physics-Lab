@@ -1,8 +1,6 @@
-%% Ask the user for data
-    % User enters the function, the left interval limit and the right
-    % interval limit. 
-func_str = input("Enter the function: ", 's');
-func = str2sym("@(x)" + func_str);
+lambda = 5e-7;
+a = 1e-5;
+func = @(x) (tan(pi*a*sin(x)/lambda) - (pi*a*sin(x)/lambda));
 x_l = str2double(input("Enter x_L: ", 's'));
 x_r = str2double(input("Enter x_R: ", 's'));
 
@@ -13,14 +11,14 @@ x_r = str2double(input("Enter x_R: ", 's'));
 if flag
     fprintf("The root in the given interval: %f\n", zero);
 else
-    fprintf("The root could not be found in the given interval\n");
+    fprintf("A root could not be found in the given interval. Value at the end of run: %d\n", zero);
 end
 
 %% Bisection Method Algorithm
 function [zero, flag] = BisectionMethod(f, x_l, x_r)
-    epsilon_0 = 5e-10;
-    delta_0 = 2e-10;    
-    N_max = 100;
+    epsilon_0 = 0.01;
+    delta_0 = 0.01;    
+    N_max = 200;
     N = 0;
     zero = 0;
     flag = 0;
@@ -31,17 +29,17 @@ function [zero, flag] = BisectionMethod(f, x_l, x_r)
     
     while N < N_max
         
-        f_l = subs(f, x_l);
-        f_r = subs(f, x_r);
+        f_l = f(x_l);
+        f_r = f(x_r);
         
         x_mid = (x_l + x_r)/2;
-        f_mid = subs(f, x_mid);
+        f_mid = f(x_mid);
         
         
         delta = abs(f_mid);
         epsilon = abs(x_l - x_r);
         
-        if ((subs(f, x_mid) == 0) || (epsilon < epsilon_0 && delta < delta_0))
+        if ((f(x_mid) == 0) || (epsilon < epsilon_0) ||  (delta < delta_0))
             zero = x_mid;
             flag = 1;
             fprintf("Number of iterations required to converge to a root: %d\n", N);
@@ -60,6 +58,7 @@ function [zero, flag] = BisectionMethod(f, x_l, x_r)
         deltas = [deltas, delta];
         
         N = N + 1;
+        zero = x_mid;
     end
     
     
