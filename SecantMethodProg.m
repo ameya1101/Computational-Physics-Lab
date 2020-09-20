@@ -1,21 +1,21 @@
-%% Ask the user for data
-    % User enters the function and an initial guess for the root.
-func_str = input("Enter the function: ", 's');
-func = str2sym("@(x)" + func_str);
-x0 = str2double(input("Enter the initial guess: ", 's'));
+% Ask user for a function and two guesses for the root
+func = str2sym("@(x)" + input("Enter the function: ", 's'));
+guesses = input("Enter two initial guesses (within a []): ");
+x0 = guesses(1);
+x1 = guesses(2);
 
-%% Run the algorithm
-[zero, flag] = NRMethod(func, x0);
+% Run the algorithm
+[zero, flag] = SecantMethod(func, x0, x1);
 
-%% Print the roots and plots
+% Print the roots and plots
 if flag
     fprintf("The root: %f\n", zero);
 else
     fprintf("The root could not be found.\n");
 end
 
-%% Newton-Raphson Method Algorithm
-function [zero, flag] = NRMethod(f, x0)
+% Newton-Raphson Method Algorithm
+function [zero, flag] = SecantMethod(f, x0, x1)
     epsilon = 5e-10;    
     N_max = 100;
     N = 1;
@@ -25,29 +25,31 @@ function [zero, flag] = NRMethod(f, x0)
     errors = [];
     iters = [];
     
-    x = x0;
-    x_old = x0;
+    x0 = x0;
+    x1 = x1;
+    x2 = 0;
     
-    f_diff = diff(f);
     
     while N < N_max
         
-        f_x0 = subs(f, x);
-        f_diff_x0 = subs(f_diff, x);
+        f_x0 = subs(f, x0);
+        f_x1 = subs(f, x1);
+        f_x2 = subs(f, x2);
         
-        x = x_old - f_x0/f_diff_x0;
+        x2 = x1 - f_x1*(x1 - x0)/(f_x1 - f_x0);
         
-        error = abs(x - x_old);
+        error = abs(x2 - x1);
         
         if(error <= epsilon)
-            zero = x;
+            zero = x2;
             fprintf("Number of iterations required for convergence: %d\n", N);
             flag = 1;
             plot_error();
             break;
         end
         
-        x_old = x;
+        x0 = x1;
+        x1 = x2;
        
         errors(N) = error;
         iters(N) = N;
@@ -58,7 +60,6 @@ function [zero, flag] = NRMethod(f, x0)
     function plot_error
         hold on
         plot(iters, errors)
-        title("Plot of error as a function of the number of iterations")
         legend('$\epsilon = |x_{i+1} - x_i|$','Interpreter','latex');
         ylabel("Error", "interpreter", "latex");
         xlabel("Iterations $N$", "interpreter", "latex");
