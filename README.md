@@ -7,11 +7,11 @@ All programming assignments have been implemented using the MATLAB programming l
  
 ## Numerical Methods Implemented
 
-- [**Bisection Method**](Lab%201)
+1. [**Bisection Method**](Lab%201)
 
 The bisection method is a root-finding method that applies to any continuous function for which one knows two function values with opposite signs.  
 
-- [**Newton-Raphson Method**](Lab%202)
+2.  [**Newton-Raphson Method**](Lab%202)
 
 The Newton-Raphson method is a root-finding algorithm that successively produces approximations to roots of a real-valued function using an initial guess and the function's derivative. 
 
@@ -20,14 +20,23 @@ The Newton-Raphson method is a root-finding algorithm that successively produces
      Particle in a finite potential well
      
 
-- [**Gaussian Method**](Lab%204)
+3. [**Gaussian Method**](Lab%204)
 
 Gaussian elimination is an algorithm in for solving a system of linear equations. It involves a sequence of operations performed on the corresponding matrix of coefficients for the system.
 
-- [**Jacobi Method**](Lab%205)
+4. [**Jacobi Method**](Lab%205)
 
 The Jacobi method is an iterative algorithm for determining the solutions of a strictly diagonally dominant system of linear equations. Each diagonal element is solved for, and an approximate value is plugged in. The process is then iterated until the method converges.
 
    - [**Applications of Jacobi Method**](Lab%205)
    
      Kirchoff current equations for an electrical circuit.
+
+5. [**Power Method**](Lab%206)
+
+The power method is an eigenvalue algorithm: given a diagonalizable matrix A, the algorithm outputs the largest absolute eigenvalue of A, and its corresponding eigenvector.
+
+  - **Applications of Power Method**
+
+    - [Normal modes of a uniform and non-uniform string](Lab%207) 
+    - [Eigenvalues of Wigner matrices and their distribution](Lab%208)
