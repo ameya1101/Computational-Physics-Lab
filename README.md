@@ -40,3 +40,11 @@ The power method is an eigenvalue algorithm: given a diagonalizable matrix A, th
 
     - [Normal modes of a uniform and non-uniform string](Lab%207) 
     - [Eigenvalues of Wigner matrices and their distribution](Lab%208)
+
+
+7. **Runge-Kutta Methods**
+
+The Runge–Kutta methods are a family of implicit and explicit iterative methods used in temporal discretization for the approximate solutions of ordinary differential equations.
+
+  - [**Euler Method and Euler-Croemer Method**](Lab%209)
+  - [**Runge-Kutta 2**](Lab%210)
